@@ -1,0 +1,64 @@
+from antlr4 import InputStream, CommonTokenStream
+from gen.renLexer import renLexer
+from gen.renParser import renParser
+from gen.renVisitor import renVisitor
+
+
+class Visitor(renVisitor):
+    def visitMoney(self, ctx):
+        print "MONEY:", ctx.getText()
+        return ctx.getText()
+
+    def visitNumber(self, ctx):
+        print "NUMBER:", ctx.getText()
+        return ctx.getText()
+
+    def visitAnyDateTime(self, ctx):
+        print "DATE:", ctx.getText()
+        return ctx.getText()
+
+    def visitWord(self, ctx):
+        print "WORD:", ctx.getText()
+        return ctx.getText()
+
+    def visitString(self, ctx):
+        print "STRING:", ctx.getText()
+        return ctx.getText()
+
+
+
+def parse(s):
+    inp = InputStream(s)
+    lexer = renLexer(inp)
+    stream = CommonTokenStream(lexer)
+    parser = renParser(stream)
+    tree = parser.value()
+    visitor = Visitor()
+    return visitor.visit(tree)
+
+
+if __name__=="__main__":
+    parse("[]")
+    parse("#()")
+    parse("123")
+    parse('640x480')
+    parse("a")
+    parse("abc")
+    parse("def")
+    parse("75.25")
+    parse("1.2e5")
+    parse("$79.99")
+    parse("3.9%")
+    parse("{}")
+    parse('""')
+    parse("none")
+    parse("true")
+    parse("false")
+    parse("yes")
+    parse("no")
+    parse("on")
+    parse("off")
+    parse("9")
+    parse('{abcd 123}')
+    parse('"hello world"')
+    parse("2013-04-17/18:37:39-06:00")
