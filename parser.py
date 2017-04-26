@@ -2,6 +2,7 @@ from antlr4 import InputStream, CommonTokenStream
 from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
+from collections import OrderedDict
 
 
 class Visitor(renVisitor):
@@ -44,6 +45,15 @@ class Visitor(renVisitor):
     def visitName(self, ctx):
         print "NAME:", ctx.getText()
         return ctx.getText()
+
+    def visitRenlist(self, ctx):
+        return [self.visit(v) for v in ctx.value()]
+
+    def visitNameValuePair(self, ctx):
+        return self.visit(ctx.name()), self.visit(ctx.value())
+
+    def visitRenmap(self, ctx):
+        return OrderedDict(self.visit(p) for p in ctx.nameValuePair())
 
 
 def parse(s):
@@ -92,3 +102,5 @@ if __name__=="__main__":
     parse("9")
     parse("+")
     parse("a: ")
+    print parse("[a 1 2 efg]")
+    print parse("#(a: 1 b: 2)")
