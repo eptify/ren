@@ -9,7 +9,7 @@ class Visitor(renVisitor):
         print "MONEY:", ctx.getText()
         return ctx.getText()
 
-    def visitNumber(self, ctx):
+    def visitAnyNumber(self, ctx):
         print "NUMBER:", ctx.getText()
         return ctx.getText()
 
@@ -21,10 +21,17 @@ class Visitor(renVisitor):
         print "WORD:", ctx.getText()
         return ctx.getText()
 
-    def visitString(self, ctx):
+    def visitAnyString(self, ctx):
         print "STRING:", ctx.getText()
         return ctx.getText()
 
+    def visitPoint(self, ctx):
+        print "POINT:", ctx.getText()
+        return ctx.getText()
+
+    def visitAnyBinary(self, ctx):
+        print "BINARY:", ctx.getText()
+        return ctx.getText()
 
 
 def parse(s):
@@ -62,3 +69,7 @@ if __name__=="__main__":
     parse('{abcd 123}')
     parse('"hello world"')
     parse("2013-04-17/18:37:39-06:00")
+    parse("1.2")
+    parse("#{ffff00}")
+    parse("16#{ffff00}")
+    parse("64#{aGVsbG8=}")
