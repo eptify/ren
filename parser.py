@@ -33,6 +33,14 @@ class Visitor(renVisitor):
         print "BINARY:", ctx.getText()
         return ctx.getText()
 
+    def visitLogic(self, ctx):
+        print "LOGIC:", ctx.getText()
+        return ctx.getText()
+
+    def visitRentuple(self, ctx):
+        print "TUPLE:", ctx.getText()
+        return ctx.getText()
+
 
 def parse(s):
     inp = InputStream(s)
@@ -49,7 +57,6 @@ if __name__=="__main__":
     parse("#()")
     parse("123")
     parse('640x480')
-    parse("a")
     parse("abc")
     parse("def")
     parse("75.25")
@@ -65,7 +72,6 @@ if __name__=="__main__":
     parse("no")
     parse("on")
     parse("off")
-    parse("9")
     parse('{abcd 123}')
     parse('"hello world"')
     parse("2013-04-17/18:37:39-06:00")
@@ -73,3 +79,7 @@ if __name__=="__main__":
     parse("#{ffff00}")
     parse("16#{ffff00}")
     parse("64#{aGVsbG8=}")
+    parse("127.0.0.1")
+    parse("a")
+    parse("9")
+    parse("+")

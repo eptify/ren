@@ -4,10 +4,15 @@ COMMENT : ';' ~[\r\n]* -> skip ;
 renlist : '[' value* ']' | '(' value* ')' ;
 renmap : '#(' nameValuePair* ')' ;
 nameValuePair : name value ;
-name : word ':' SPACE ;
+Name : Word ':' SPACE ;
+name : Name ;
 value : renlist | renmap | none | logic | name | word
     | anyNumber | anyString | anyDateTime 
     | anyBinary | rentuple | point ;
+none : NONE ;
+logic : LOGIC ;
+point : Point ;
+word : Word ;
 anyNumber : Number | Percent | Money | NAN | INF ;
 anyString : String ; //| impliedString ;
 anyDateTime : DateTime | Date | RelDateTime | RelDate | RelTime ;
@@ -23,8 +28,8 @@ Percent : Number '%' ;
 Money : SIGN? '$' INT FRAC? ;
 NAN : '1.#NaN' ;
 INF : SIGN? '1.#INF' ;
-none : 'none' ;
-logic : 'true' | 'false' | 'on' | 'off' | 'yes' | 'no' ;
+NONE : 'none' ;
+LOGIC : 'true' | 'false' | 'on' | 'off' | 'yes' | 'no' ;
 Date : DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT ;
 TimeOfDay : DIGIT DIGIT ':' DIGIT DIGIT Seconds? ;
 Seconds : ':' DIGIT DIGIT FRAC? ;
@@ -36,9 +41,9 @@ RelTime : SIGN? INT ':' INT RelSeconds? ;
 RelSeconds : ':' DIGIT+ FRAC? ;
 RelDateTime : RelDate DateTimeSep RelTime ;
 // relDateTime : SIGN? INT ':' INT ':' INT ':' relTime ;
-word : WordFirstChar WordInnerChar* ;
-WordFirstChar : ~[0-9{}"()/\\@#$%^,:;<>[\]'] ;
-WordInnerChar : WordFirstChar | DIGIT ;
+Word : WordFirstChar WordInnerChar* ;
+fragment WordFirstChar : ~[0-9{}"()/\\@#$%^,:;<>[\]'] ;
+fragment WordInnerChar : WordFirstChar | DIGIT ;
 /*
 impliedString : ImplStrFirstChar implStrInnerChar* ;
 ImplStrFirstChar : ~[0-9{}"()\\$^,;<>[\]] ;
@@ -46,17 +51,18 @@ implStrInnerChar :
     (WordInnerChar | '/' | '\\' | '@' | '#' | '$' | '%' | ',' | ':' | '\'')
     (ImplStrFirstChar | DIGIT | '\\' | '$' | ',') ;
 */
-rentuple : INT tuplePart tuplePart+ ;
-tuplePart : '.' INT ;
-point : Number axis+ ;
-axis : 'x' Number ;
+rentuple : TUPLE ;
+TUPLE : INT TuplePart TuplePart+ ;
+fragment TuplePart : '.' INT ;
+Point : Number Axis+ ;
+Axis : 'x' Number ;
 B16binary : '16'? '#{' (B16CHAR B16CHAR)* '}' ;
 B64binary : '64#{' (B64CHAR B64CHAR B64CHAR B64CHAR)* '}' ;
-SIGN : '-' ;
-FRAC : '.' INT ;
+fragment SIGN : '-' ;
+fragment FRAC : '.' INT ;
 INT : [0-9]+ ;
-EXP : [eE] [+\-]? INT ;
+fragment EXP : [eE] [+\-]? INT ;
 B16CHAR : [0-9A-Fa-f] ;
 B64CHAR : [0-9A-Za-z+/=] ;
-DIGIT : [0-9] ;
-SPACE : [ \t\r\n]+ ;
+fragment DIGIT : [0-9] ;
+fragment SPACE : [ \t\r\n]+ ;
