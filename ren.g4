@@ -1,10 +1,8 @@
 grammar ren ;
-WS : [ \t\r\n]+ -> channel(HIDDEN) ;
-COMMENT : ';' ~[\r\n]* -> skip ;
+/*parser*/
 renlist : '[' value* ']' | '(' value* ')' ;
 renmap : '#(' nameValuePair* ')' ;
 nameValuePair : name value ;
-Name : Word ':' SPACE ;
 name : Name ;
 value : renlist | renmap | none | logic | name | word
     | anyNumber | anyString | anyDateTime 
@@ -14,15 +12,13 @@ logic : LOGIC ;
 point : Point ;
 word : Word ;
 anyNumber : Number | Percent | Money | NAN | INF ;
-anyString : String ; //| impliedString ;
+anyString : String ; //| ImpliedString ;
 anyDateTime : DateTime | Date | RelDateTime | RelDate | RelTime ;
 anyBinary : B16binary | B64binary ;
-String : ('"' CHAR* '"') | MultilineString | Tag ;
-MSCHAR : ~[{}^] ;
-MultilineString : '{' (MSCHAR* | MultilineString) '}' ;
-TAGCHAR : ~[<>^] ;
-Tag : '<' (TAGCHAR | Tag)* '>' ;
-CHAR : ~["^\n\r] ;
+rentuple : TUPLE ;
+/*lexer*/
+WS : [ \t\r\n]+ -> channel(HIDDEN) ;
+COMMENT : ';' ~[\r\n]* -> skip ;
 Number : SIGN? INT FRAC? EXP? ;
 Percent : Number '%' ;
 Money : SIGN? '$' INT FRAC? ;
@@ -41,17 +37,10 @@ RelTime : SIGN? INT ':' INT RelSeconds? ;
 RelSeconds : ':' DIGIT+ FRAC? ;
 RelDateTime : RelDate DateTimeSep RelTime ;
 // relDateTime : SIGN? INT ':' INT ':' INT ':' relTime ;
+Name : Word ':' SPACE ;
 Word : WordFirstChar WordInnerChar* ;
-fragment WordFirstChar : ~[0-9{}"()/\\@#$%^,:;<>[\]'] ;
+fragment WordFirstChar : ~[ \t\r\n0-9{}"()/\\@#$%^,:;<>[\]'] ;
 fragment WordInnerChar : WordFirstChar | DIGIT ;
-/*
-impliedString : ImplStrFirstChar implStrInnerChar* ;
-ImplStrFirstChar : ~[0-9{}"()\\$^,;<>[\]] ;
-implStrInnerChar :
-    (WordInnerChar | '/' | '\\' | '@' | '#' | '$' | '%' | ',' | ':' | '\'')
-    (ImplStrFirstChar | DIGIT | '\\' | '$' | ',') ;
-*/
-rentuple : TUPLE ;
 TUPLE : INT TuplePart TuplePart+ ;
 fragment TuplePart : '.' INT ;
 Point : Number Axis+ ;
@@ -66,3 +55,16 @@ B16CHAR : [0-9A-Fa-f] ;
 B64CHAR : [0-9A-Za-z+/=] ;
 fragment DIGIT : [0-9] ;
 fragment SPACE : [ \t\r\n]+ ;
+String : ('"' CHAR* '"') | MultilineString | Tag ;
+MSCHAR : ~[{}^] ;
+MultilineString : '{' (MSCHAR* | MultilineString) '}' ;
+TAGCHAR : ~[<>^] ;
+Tag : '<' (TAGCHAR | Tag)* '>' ;
+CHAR : ~["^\n\r] ;
+/*
+ImpliedString : ImplStrFirstChar ImplStrInnerChar* ;
+ImplStrFirstChar : ~[0-9{}"()\\$^,;<>[\]] ;
+ImplStrInnerChar :
+    (WordInnerChar | '/' | '\\' | '@' | '#' | '$' | '%' | ',' | ':' | '\'')
+    (ImplStrFirstChar | DIGIT | '\\' | '$' | ',') ;
+*/

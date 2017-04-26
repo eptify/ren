@@ -41,6 +41,10 @@ class Visitor(renVisitor):
         print "TUPLE:", ctx.getText()
         return ctx.getText()
 
+    def visitName(self, ctx):
+        print "NAME:", ctx.getText()
+        return ctx.getText()
+
 
 def parse(s):
     inp = InputStream(s)
@@ -75,11 +79,16 @@ if __name__=="__main__":
     parse('{abcd 123}')
     parse('"hello world"')
     parse("2013-04-17/18:37:39-06:00")
+    parse("2013-04-17")
     parse("1.2")
     parse("#{ffff00}")
     parse("16#{ffff00}")
     parse("64#{aGVsbG8=}")
     parse("127.0.0.1")
+    parse("<tag>")
+    parse("aa")
+    parse("99")
     parse("a")
     parse("9")
     parse("+")
+    parse("a: ")
