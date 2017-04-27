@@ -1,6 +1,7 @@
 from collections import Mapping, Iterable
 from datetime import datetime, timedelta
 from decimal import Decimal
+from math import isinf, isnan
 
 class Word(str):
     pass
@@ -49,6 +50,11 @@ def stringify(x):
     if isinstance(x, Iterable):
         return "[" + " ".join(map(stringify, x)) + "]"
     else:
+        if isinstance(x, float):
+            if isnan(x):
+                return "1.#NaN"
+            if isinf(x):
+                return "1.#INF"
         return str(x)
 
 
@@ -68,3 +74,5 @@ if __name__=="__main__":
     print stringify('abcd: "test"\n 1')
     print stringify(Percent("3.9"))
     print stringify(Money("79.99"))
+    print stringify(float('nan'))
+    print stringify(float('inf'))

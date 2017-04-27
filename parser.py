@@ -3,15 +3,30 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from collections import OrderedDict
+from ren import Money, Percent, Word
 
 
 class Visitor(renVisitor):
-    def visitMoney(self, ctx):
-        print "MONEY:", ctx.getText()
-        return ctx.getText()
-
     def visitAnyNumber(self, ctx):
-        print "NUMBER:", ctx.getText()
+        if ctx.Money():
+            print "MONEY"
+            return Money(ctx.getText().lstrip("$"))
+        elif ctx.Number():
+            print "NUMBER"
+            try:
+                return int(ctx.getText())
+            except ValueError:
+                return float(ctx.getText())
+        elif ctx.Percent():
+            print "PERCENT"
+            return Percent(ctx.getText().rstrip("%"))
+        elif ctx.NAN():
+            print "NAN"
+            return float('nan')
+        elif ctx.INF():
+            print "INF"
+            return float('inf')
+        print ctx.getText()
         return ctx.getText()
 
     def visitAnyDateTime(self, ctx):
@@ -20,7 +35,7 @@ class Visitor(renVisitor):
 
     def visitWord(self, ctx):
         print "WORD:", ctx.getText()
-        return ctx.getText()
+        return Word(ctx.getText())
 
     def visitAnyString(self, ctx):
         print "STRING:", ctx.getText()
@@ -36,7 +51,12 @@ class Visitor(renVisitor):
 
     def visitLogic(self, ctx):
         print "LOGIC:", ctx.getText()
-        return ctx.getText()
+        if ctx.getText() in ("yes", "on", "true"):
+            return True
+        return False
+
+    def visitNone(self, ctx):
+        return None
 
     def visitRentuple(self, ctx):
         print "TUPLE:", ctx.getText()
@@ -69,14 +89,14 @@ def parse(s):
 if __name__=="__main__":
     parse("[]")
     parse("#()")
-    parse("123")
+    print parse("123")
     parse('640x480')
     parse("abc")
     parse("def")
-    parse("75.25")
-    parse("1.2e5")
-    parse("$79.99")
-    parse("3.9%")
+    print parse("75.25")
+    print parse("1.2e5")
+    print parse("$79.99")
+    print parse("3.9%")
     parse("{}")
     parse('""')
     parse("none")
@@ -90,16 +110,16 @@ if __name__=="__main__":
     parse('"hello world"')
     parse("2013-04-17/18:37:39-06:00")
     parse("2013-04-17")
-    parse("1.2")
+    print parse("1.2")
     parse("#{ffff00}")
     parse("16#{ffff00}")
     parse("64#{aGVsbG8=}")
     parse("127.0.0.1")
     parse("<tag>")
     parse("aa")
-    parse("99")
+    print parse("99")
     parse("a")
-    parse("9")
+    print parse("9")
     parse("+")
     parse("a: ")
     print parse("[a 1 2 efg]")
