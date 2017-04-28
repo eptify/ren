@@ -1,6 +1,5 @@
 import pytest
-from ren.parser import parse as loads
-from ren.ren import stringify as dumps
+from ren import dumps, loads
 
 
 cases = [

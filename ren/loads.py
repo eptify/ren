@@ -2,8 +2,7 @@ from antlr4 import InputStream, CommonTokenStream
 from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
-from collections import OrderedDict
-from ren import Money, Percent, Word, Point, stringify, datetime
+from .types import Money, Percent, Word, Point, DateTime, Map, List, Tuple
 
 
 def parse_number(s):
@@ -42,7 +41,7 @@ class Visitor(renVisitor):
         if ctx.DateTime():
             pass
         elif ctx.Date():
-            return datetime.strptime(ctx.getText(), "%Y-%m-%d")
+            return DateTime.strptime(ctx.getText(), "%Y-%m-%d")
         return ctx.getText()
 
     def visitWord(self, ctx):
@@ -78,23 +77,23 @@ class Visitor(renVisitor):
 
     def visitRentuple(self, ctx):
         print "TUPLE:", ctx.getText()
-        return tuple(map(int, ctx.getText().split('.')))
+        return Tuple(map(int, ctx.getText().split('.')))
 
     def visitName(self, ctx):
         print "NAME:", ctx.getText()
         return ctx.getText()[:-2]
 
     def visitRenlist(self, ctx):
-        return [self.visit(v) for v in ctx.value()]
+        return List([self.visit(v) for v in ctx.value()])
 
     def visitNameValuePair(self, ctx):
         return self.visit(ctx.name()), self.visit(ctx.value())
 
     def visitRenmap(self, ctx):
-        return OrderedDict(self.visit(p) for p in ctx.nameValuePair())
+        return Map(self.visit(p) for p in ctx.nameValuePair())
 
 
-def parse(s):
+def loads(s):
     inp = InputStream(s)
     lexer = renLexer(inp)
     stream = CommonTokenStream(lexer)
@@ -102,46 +101,3 @@ def parse(s):
     tree = parser.value()
     visitor = Visitor()
     return visitor.visit(tree)
-
-
-if __name__=="__main__":
-    parse("[]")
-    parse("#()")
-    print parse("123")
-    print stringify(parse('640x480'))
-    parse("abc")
-    parse("def")
-    print parse("75.25")
-    print parse("1.2e5")
-    print parse("$79.99")
-    print parse("3.9%")
-    parse("{}")
-    print parse('""')
-    parse("none")
-    parse("true")
-    parse("false")
-    parse("yes")
-    parse("no")
-    parse("on")
-    parse("off")
-    parse('{abcd 123}')
-    print parse('"hello world"')
-    parse("2013-04-17/18:37:39-06:00")
-    print stringify(parse("2013-04-17"))
-    print parse("1.2")
-    parse("#{ffff00}")
-    parse("16#{ffff00}")
-    parse("64#{aGVsbG8=}")
-    print parse("127.0.0.1")
-    print parse("<tag>")
-    parse("aa")
-    print parse("99")
-    parse("a")
-    print parse("9")
-    parse("+")
-    parse("a: ")
-    print parse("[a 1 2 efg]")
-    print stringify(parse("[a 1 2 efg]"))
-    print parse("#(a: 1 b: 2)")
-    print stringify(parse("#(a: 1 b: 2)"))
-    print stringify(parse('#(a: 1 b: "two")'))
