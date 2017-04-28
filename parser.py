@@ -3,7 +3,18 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from collections import OrderedDict
-from ren import Money, Percent, Word
+from ren import Money, Percent, Word, Point, stringify
+
+
+def parse_number(s):
+    try:
+        return int(s)
+    except ValueError:
+        return float(s)
+
+
+def unescape(s):
+    return s
 
 
 class Visitor(renVisitor):
@@ -13,10 +24,7 @@ class Visitor(renVisitor):
             return Money(ctx.getText().lstrip("$"))
         elif ctx.Number():
             print "NUMBER"
-            try:
-                return int(ctx.getText())
-            except ValueError:
-                return float(ctx.getText())
+            return parse_number(ctx.getText())
         elif ctx.Percent():
             print "PERCENT"
             return Percent(ctx.getText().rstrip("%"))
@@ -39,14 +47,20 @@ class Visitor(renVisitor):
 
     def visitAnyString(self, ctx):
         print "STRING:", ctx.getText()
+        if ctx.String():
+            return unescape(ctx.getText()[1:-1])
         return ctx.getText()
 
     def visitPoint(self, ctx):
         print "POINT:", ctx.getText()
-        return ctx.getText()
+        return Point(map(parse_number, ctx.getText().split('x')))
 
     def visitAnyBinary(self, ctx):
         print "BINARY:", ctx.getText()
+        if ctx.B16binary():
+            pass
+        elif ctx.B64binary():
+            pass
         return ctx.getText()
 
     def visitLogic(self, ctx):
@@ -60,11 +74,11 @@ class Visitor(renVisitor):
 
     def visitRentuple(self, ctx):
         print "TUPLE:", ctx.getText()
-        return ctx.getText()
+        return tuple(map(int, ctx.getText().split('.')))
 
     def visitName(self, ctx):
         print "NAME:", ctx.getText()
-        return ctx.getText()
+        return ctx.getText()[:-2]
 
     def visitRenlist(self, ctx):
         return [self.visit(v) for v in ctx.value()]
@@ -90,7 +104,7 @@ if __name__=="__main__":
     parse("[]")
     parse("#()")
     print parse("123")
-    parse('640x480')
+    print stringify(parse('640x480'))
     parse("abc")
     parse("def")
     print parse("75.25")
@@ -98,7 +112,7 @@ if __name__=="__main__":
     print parse("$79.99")
     print parse("3.9%")
     parse("{}")
-    parse('""')
+    print parse('""')
     parse("none")
     parse("true")
     parse("false")
@@ -107,15 +121,15 @@ if __name__=="__main__":
     parse("on")
     parse("off")
     parse('{abcd 123}')
-    parse('"hello world"')
+    print parse('"hello world"')
     parse("2013-04-17/18:37:39-06:00")
     parse("2013-04-17")
     print parse("1.2")
     parse("#{ffff00}")
     parse("16#{ffff00}")
     parse("64#{aGVsbG8=}")
-    parse("127.0.0.1")
-    parse("<tag>")
+    print parse("127.0.0.1")
+    print parse("<tag>")
     parse("aa")
     print parse("99")
     parse("a")
@@ -123,4 +137,7 @@ if __name__=="__main__":
     parse("+")
     parse("a: ")
     print parse("[a 1 2 efg]")
+    print stringify(parse("[a 1 2 efg]"))
     print parse("#(a: 1 b: 2)")
+    print stringify(parse("#(a: 1 b: 2)"))
+    print stringify(parse('#(a: 1 b: "two")'))
