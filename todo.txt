@@ -1,16 +1,19 @@
-* spaces in binary literals
 * what are implied strings?
 * what are # literals?
-* base 2 and octal literals
+* what are warning literals?
+* spaces in binary literals
 * datetime parsing
 * date and datetime printing
 * loads, dumps, load, dump, interface
-* indented pretty printing
 * single and multiline string escaping and unescaping
 * url literal
 * email literal
-* what are warning literals?
 * unicode in strings
 * test suite
 * simplify visitor, grammar lexer and parser rules
+* directory layout
+
+* indented pretty printing
+* file path literal
 * optional 3 character currency tags (e.g. USD$2.50, EUR$2.00)
+* base 2 and octal literals
