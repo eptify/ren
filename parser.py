@@ -3,7 +3,7 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from collections import OrderedDict
-from ren import Money, Percent, Word, Point, stringify
+from ren import Money, Percent, Word, Point, stringify, datetime
 
 
 def parse_number(s):
@@ -39,6 +39,10 @@ class Visitor(renVisitor):
 
     def visitAnyDateTime(self, ctx):
         print "DATE:", ctx.getText()
+        if ctx.DateTime():
+            pass
+        elif ctx.Date():
+            return datetime.strptime(ctx.getText(), "%Y-%m-%d")
         return ctx.getText()
 
     def visitWord(self, ctx):
@@ -123,7 +127,7 @@ if __name__=="__main__":
     parse('{abcd 123}')
     print parse('"hello world"')
     parse("2013-04-17/18:37:39-06:00")
-    parse("2013-04-17")
+    print stringify(parse("2013-04-17"))
     print parse("1.2")
     parse("#{ffff00}")
     parse("16#{ffff00}")

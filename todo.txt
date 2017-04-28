@@ -1,0 +1,16 @@
+* spaces in binary literals
+* what are implied strings?
+* what are # literals?
+* base 2 and octal literals
+* datetime parsing
+* date and datetime printing
+* loads, dumps, load, dump, interface
+* indented pretty printing
+* single and multiline string escaping and unescaping
+* url literal
+* email literal
+* what are warning literals?
+* unicode in strings
+* test suite
+* simplify visitor, grammar lexer and parser rules
+* optional 3 character currency tags (e.g. USD$2.50, EUR$2.00)
