@@ -7,6 +7,7 @@ TODO
 [ ] date, datetime, timedelta dumps
 [x] string escaping and unescaping
 [ ] multiline string escaping and unescaping
+[ ] parenthesized escapes (^(line), ^(tab), ^(XXXX), etc.)
 [x] unicode in strings
 [x] test suite
 [ ] simplify visitor, grammar lexer and parser rules
