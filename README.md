@@ -1,9 +1,8 @@
 TODO
 ----
-[ ] implied string literals (url, email, file, etc.)
-[ ] issue literals, warning literals (are these implied strings as well?)
+[ ] implied string literals (url, email, file, issues, etc.)
 [ ] spaces in binary literals
-[ ] datetime parsing
+[ ] timedelta, datetime parsing
 [ ] date, datetime, timedelta printing
 [ ] single and multiline string escaping and unescaping
 [ ] unicode in strings
