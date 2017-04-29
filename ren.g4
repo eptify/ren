@@ -68,4 +68,4 @@ fragment MSCHAR : ~[{}^] ;
 MultilineString : '{' (MSCHAR* | MultilineString) '}' ;
 fragment TAGCHAR : ~[<>^] ;
 Tag : '<' (TAGCHAR | Tag)* '>' ;
-fragment CHAR : ~["^\n\r] ;
+fragment CHAR : '^"' | '^/' | '^M' | ~["^\n\r] ;

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from ren import dumps, loads
 
 cases = [
@@ -39,6 +41,7 @@ cases = [
     "[a 1 2 efg]",
     "#(a: 1 b: 2)",
     '#(a: 1 b: "two")',
+    u'"禅 saying: ^"仁 rocks!^""',
 ]
 
 

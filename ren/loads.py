@@ -14,6 +14,9 @@ def parse_number(s):
 
 
 def unescape(s):
+    s = s.replace('^"', '"')
+    s = s.replace('^/', '\n')
+    s = s.replace('^M', '\r')
     return s
 
 

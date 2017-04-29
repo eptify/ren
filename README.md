@@ -2,11 +2,13 @@ TODO
 ----
 [ ] implied string literals (url, email, file, issues, etc.)
 [ ] spaces in binary literals
-[ ] timedelta, datetime parsing
-[ ] date, datetime, timedelta printing
-[ ] single and multiline string escaping and unescaping
-[ ] unicode in strings
-[ ] test suite
+[ ] binary literal decoding
+[ ] timedelta, datetime loads
+[ ] date, datetime, timedelta dumps
+[x] string escaping and unescaping
+[ ] multiline string escaping and unescaping
+[x] unicode in strings
+[x] test suite
 [ ] simplify visitor, grammar lexer and parser rules
 [x] directory layout
 [x] loads, dumps, load, dump, interface
