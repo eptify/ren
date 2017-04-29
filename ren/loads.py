@@ -4,6 +4,7 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from .types import Money, Percent, Word, Point, DateTime, Map, List, Tuple
+from .util import unescape
 
 
 def parse_number(s):
@@ -11,13 +12,6 @@ def parse_number(s):
         return int(s)
     except ValueError:
         return float(s)
-
-
-def unescape(s):
-    s = s.replace('^"', '"')
-    s = s.replace('^/', '\n')
-    s = s.replace('^M', '\r')
-    return s
 
 
 class Visitor(renVisitor):

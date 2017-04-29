@@ -2,13 +2,7 @@ from collections import Mapping, Iterable
 from math import isinf, isnan
 from datetime import datetime
 from .types import Point, Word
-
-
-def escape(s):
-    s = s.replace('"', '^"')
-    s = s.replace('\n', '^/')
-    s = s.replace('\r', '^M')
-    return s
+from .util import escape
 
 
 def dumps(x):
