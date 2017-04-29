@@ -13,7 +13,7 @@ logic : LOGIC ;
 point : Point ;
 word : Word ;
 anyNumber : Number | Percent | Money | NAN | INF ;
-anyString : String ; //| ImpliedString ;
+anyString : String | ImpliedString ;
 anyDateTime : DateTime | Date | RelDateTime | RelDate | RelTime ;
 anyBinary : B16binary | B64binary ;
 rentuple : TUPLE ;
@@ -56,13 +56,11 @@ fragment B16CHAR : [0-9A-Fa-f] ;
 fragment B64CHAR : [0-9A-Za-z+/=] ;
 fragment DIGIT : [0-9] ;
 fragment SPACE : [ \t\r\n]+ ;
-/*
 ImpliedString : ImplStrFirstChar ImplStrInnerChar* ;
 fragment ImplStrFirstChar : ~[ \t\r\n0-9{}"()\\$^,;<>[\]] ;
 fragment ImplStrInnerChar :
-    (WordInnerChar | '/' | '\\' | '@' | '#' | '$' | '%' | ',' | ':' | '\'')
-    (ImplStrFirstChar | DIGIT | '\\' | '$' | ',') ;
-*/
+    (WordInnerChar | '/' | '\\' | '@' | '#' | '$' | '%' | ',' | ':' | '\'') ;
+//  (ImplStrFirstChar | DIGIT | '\\' | '$' | ',') ;
 String : ('"' CHAR* '"') | MultilineString | Tag ;
 fragment MSCHAR : ~[{}^] ;
 MultilineString : '{' (MSCHAR* | MultilineString) '}' ;

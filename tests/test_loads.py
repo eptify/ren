@@ -42,6 +42,9 @@ cases = [
     "#(a: 1 b: 2)",
     '#(a: 1 b: "two")',
     u'"禅 saying: ^"仁 rocks!^""',
+    "example@example.com",
+    "http://example.com",
+    "#555-5555",
 ]
 
 

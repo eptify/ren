@@ -1,6 +1,6 @@
 TODO
 ----
-[ ] implied string literals (url, email, file, issues, etc.)
+[x] implied string literals (url, email, file, issues, etc.)
 [ ] spaces in binary literals
 [ ] binary literal decoding
 [ ] timedelta, datetime loads
