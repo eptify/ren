@@ -20,25 +20,18 @@ def unescape(s):
 class Visitor(renVisitor):
     def visitAnyNumber(self, ctx):
         if ctx.Money():
-            print "MONEY"
             return Money(ctx.getText().lstrip("$"))
         elif ctx.Number():
-            print "NUMBER"
             return parse_number(ctx.getText())
         elif ctx.Percent():
-            print "PERCENT"
             return Percent(ctx.getText().rstrip("%"))
         elif ctx.NAN():
-            print "NAN"
             return float('nan')
         elif ctx.INF():
-            print "INF"
             return float('inf')
-        print ctx.getText()
         return ctx.getText()
 
     def visitAnyDateTime(self, ctx):
-        print "DATE:", ctx.getText()
         if ctx.DateTime():
             pass
         elif ctx.Date():
@@ -46,21 +39,17 @@ class Visitor(renVisitor):
         return ctx.getText()
 
     def visitWord(self, ctx):
-        print "WORD:", ctx.getText()
         return Word(ctx.getText())
 
     def visitAnyString(self, ctx):
-        print "STRING:", ctx.getText()
         if ctx.String():
             return unescape(ctx.getText()[1:-1])
         return ctx.getText()
 
     def visitPoint(self, ctx):
-        print "POINT:", ctx.getText()
         return Point(map(parse_number, ctx.getText().split('x')))
 
     def visitAnyBinary(self, ctx):
-        print "BINARY:", ctx.getText()
         if ctx.B16binary():
             pass
         elif ctx.B64binary():
@@ -68,7 +57,6 @@ class Visitor(renVisitor):
         return ctx.getText()
 
     def visitLogic(self, ctx):
-        print "LOGIC:", ctx.getText()
         if ctx.getText() in ("yes", "on", "true"):
             return True
         return False
@@ -77,11 +65,9 @@ class Visitor(renVisitor):
         return None
 
     def visitRentuple(self, ctx):
-        print "TUPLE:", ctx.getText()
         return Tuple(map(int, ctx.getText().split('.')))
 
     def visitName(self, ctx):
-        print "NAME:", ctx.getText()
         return ctx.getText()[:-2]
 
     def visitRenlist(self, ctx):

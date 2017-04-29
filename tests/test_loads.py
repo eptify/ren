@@ -1,43 +1,47 @@
 from ren import dumps, loads
 
+cases = [
+    "[]",
+    "#()",
+    "123",
+    '640x480',
+    "abc",
+    "def",
+    "75.25",
+    "1.2e5",
+    "$79.99",
+    "3.9%",
+    "{}",
+    '""',
+    "none",
+    "true",
+    "false",
+    "yes",
+    "no",
+    "on",
+    "off",
+    '{abcd 123}',
+    '"hello world"',
+    "2013-04-17/18:37:39-06:00",
+    "2013-04-17",
+    "1.2",
+    "#{ffff00}",
+    "16#{ffff00}",
+    "64#{aGVsbG8=}",
+    "127.0.0.1",
+    "<tag>",
+    "aa",
+    "99",
+    "a",
+    "9",
+    "+",
+    "a: ",
+    "[a 1 2 efg]",
+    "#(a: 1 b: 2)",
+    '#(a: 1 b: "two")',
+]
 
-loads("[]")
-loads("#()")
-print loads("123")
-print dumps(loads('640x480'))
-loads("abc")
-loads("def")
-print loads("75.25")
-print loads("1.2e5")
-print loads("$79.99")
-print loads("3.9%")
-loads("{}")
-print loads('""')
-loads("none")
-loads("true")
-loads("false")
-loads("yes")
-loads("no")
-loads("on")
-loads("off")
-loads('{abcd 123}')
-print loads('"hello world"')
-loads("2013-04-17/18:37:39-06:00")
-print dumps(loads("2013-04-17"))
-print loads("1.2")
-loads("#{ffff00}")
-loads("16#{ffff00}")
-loads("64#{aGVsbG8=}")
-print loads("127.0.0.1")
-print loads("<tag>")
-loads("aa")
-print loads("99")
-loads("a")
-print loads("9")
-loads("+")
-loads("a: ")
-print loads("[a 1 2 efg]")
-print dumps(loads("[a 1 2 efg]"))
-print loads("#(a: 1 b: 2)")
-print dumps(loads("#(a: 1 b: 2)"))
-print dumps(loads('#(a: 1 b: "two")'))
+
+for case in cases:
+    x = loads(case)
+    print case, x, dumps(x), type(x).__name__
