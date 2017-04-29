@@ -1,13 +1,14 @@
 TODO
 ----
 [x] implied string literals (url, email, file, issues, etc.)
-[ ] spaces in binary literals
+[x] spaces in binary literals
+[ ] fix name loads, dumps
 [ ] binary literal decoding
 [ ] timedelta, datetime loads
 [ ] date, datetime, timedelta dumps
 [x] string escaping and unescaping
 [ ] multiline string escaping and unescaping
-[ ] parenthesized escapes (^(line), ^(tab), ^(XXXX), etc.)
+[x] parenthesized escapes (^(line), ^(tab), ^(XXXX), etc.)
 [x] unicode in strings
 [x] test suite
 [ ] simplify visitor, grammar lexer and parser rules
