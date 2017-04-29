@@ -2,7 +2,7 @@ TODO
 ----
 [x] implied string literals (url, email, file, issues, etc.)
 [x] spaces in binary literals
-[ ] fix name loads, dumps
+[x] fix name loads, dumps
 [ ] binary literal decoding
 [ ] timedelta, datetime loads
 [ ] date, datetime, timedelta dumps

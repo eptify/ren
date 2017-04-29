@@ -70,7 +70,7 @@ class Visitor(renVisitor):
         return Tuple(map(int, ctx.getText().split('.')))
 
     def visitName(self, ctx):
-        return ctx.getText()[:-2]
+        return ctx.getText().rstrip()[:-1]
 
     def visitRenlist(self, ctx):
         return List([self.visit(v) for v in ctx.value()])

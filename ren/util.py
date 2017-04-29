@@ -9,7 +9,7 @@ def escape(s):
     return s
 
 
-RE = re.compile("(\^\([a-fA-F0-9]+\))")
+RE = re.compile("\^\([a-fA-F0-9]+\)")
 
 
 def unescape(s):
@@ -17,9 +17,8 @@ def unescape(s):
     s = s.replace('^/', '\n')
     s = s.replace('^M', '\r')
     s = s.replace('^@', '\0')
-    matches = RE.search(s)
-    if matches:
-        for group in matches.groups():
-            hex = group[2:-1]
-            s = s.replace(group, unichr(int(hex, 16)))
+    matches = RE.findall(s)
+    for match in matches:
+        hex = match[2:-1]
+        s = s.replace(match, unichr(int(hex, 16)))
     return s
