@@ -45,3 +45,7 @@ class Point(tuple):
 
 class DateTime(datetime):
     pass
+
+
+class TimeDelta(timedelta):
+    pass

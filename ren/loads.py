@@ -33,7 +33,12 @@ class Visitor(renVisitor):
 
     def visitAnyDateTime(self, ctx):
         if ctx.DateTime():
-            pass
+            x = ctx.getText()
+            x = x.replace('T', '/')
+            if len(x) > 19:
+                pass # todo: handle timezone
+            else:
+                return DateTime.strptime(ctx.getText(), "%Y-%m-%d/%H:%M:%S")
         elif ctx.Date():
             return DateTime.strptime(ctx.getText(), "%Y-%m-%d")
         return ctx.getText()
