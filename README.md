@@ -3,7 +3,7 @@ TODO
 [x] implied string literals (url, email, file, issues, etc.)
 [x] spaces in binary literals
 [x] fix name loads, dumps
-[ ] binary literal decoding
+[x] binary literal decoding
 [ ] timedelta, datetime loads
 [ ] date, datetime, timedelta dumps
 [x] string escaping and unescaping

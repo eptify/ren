@@ -1,7 +1,7 @@
 from collections import Mapping, Iterable
 from math import isinf, isnan
 from datetime import datetime
-from .types import Point, Word
+from .types import Point, Word, Binary
 from .util import escape
 
 
@@ -12,6 +12,8 @@ def dumps(x):
         return "false"
     if x is None:
         return "none"
+    if isinstance(x, Binary):
+        return str(x)
     if isinstance(x, datetime):
         return "{Y}-{M}-{d}/{h}:{m}:{s}".format(
             Y=str(x.year).zfill(4),

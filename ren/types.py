@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
 from collections import OrderedDict
+from base64 import b64encode
 
 
 class Map(OrderedDict):
@@ -49,3 +50,8 @@ class DateTime(datetime):
 
 class TimeDelta(timedelta):
     pass
+
+
+class Binary(str):
+    def __str__(self):
+        return '64#{' + b64encode(self) + '}'

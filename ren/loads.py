@@ -1,9 +1,12 @@
+import re
+import codecs
 from antlr4 import InputStream, CommonTokenStream
 from antlr4.error.ErrorListener import ErrorListener
 from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
-from .types import Money, Percent, Word, Point, DateTime, Map, List, Tuple
+from base64 import b64decode
+from .types import Money, Percent, Word, Point, DateTime, Map, List, Tuple, Binary
 from .util import unescape
 
 
@@ -52,11 +55,16 @@ class Visitor(renVisitor):
         return Point(map(parse_number, ctx.getText().split('x')))
 
     def visitAnyBinary(self, ctx):
+        x = re.sub('\s+', '', ctx.getText())
         if ctx.B16binary():
-            pass
+            if x.startswith('16'):
+                x = x[4:-1]
+            else:
+                x = x[2:-1]
+            return Binary(codecs.decode(x, 'hex'))
         elif ctx.B64binary():
-            pass
-        return ctx.getText()
+            x = x[4:-1]
+            return Binary(b64decode(x))
 
     def visitLogic(self, ctx):
         if ctx.getText() in ("yes", "on", "true"):
