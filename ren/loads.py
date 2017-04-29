@@ -1,4 +1,5 @@
 from antlr4 import InputStream, CommonTokenStream
+from antlr4.error.ErrorListener import ErrorListener
 from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
@@ -92,12 +93,34 @@ class Visitor(renVisitor):
     def visitRenmap(self, ctx):
         return Map(self.visit(p) for p in ctx.nameValuePair())
 
+    def visitSingleValue(self, ctx):
+        return self.visit(ctx.value())
+
+
+class RenErrorListener(ErrorListener):
+    def __init__(self):
+        super(RenErrorListener, self).__init__()
+
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        raise ValueError("line " + str(line) + ":" + str(column) + " " + msg)
+
+    def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
+        raise ValueError("ambiguity")
+
+    def reportAttemptingFullContext(self, recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs):
+        raise ValueError("attempting full context")
+
+    def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
+        raise ValueError("context sensitivity")
+
 
 def loads(s):
     inp = InputStream(s)
     lexer = renLexer(inp)
+    lexer._listeners = [RenErrorListener()]
     stream = CommonTokenStream(lexer)
     parser = renParser(stream)
-    tree = parser.value()
+    parser._listeners = [RenErrorListener()]
+    tree = parser.singleValue()
     visitor = Visitor()
     return visitor.visit(tree)
