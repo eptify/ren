@@ -16,6 +16,7 @@ TODO
 [x] loads, dumps, load, dump, interface
 [x] raise ValueError on parse errors
 
+[ ] allow words starting with '<', '>' that aren't valid tags
 [ ] indented pretty printing
 [ ] optional 3 character currency tags (e.g. USD$2.50, EUR$2.00)
 [ ] base 2 and octal literals
