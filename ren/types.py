@@ -20,14 +20,6 @@ class Word(str):
     pass
 
 
-class Email(object):
-    pass
-
-
-class Url(object):
-    pass
-
-
 class Percent(Decimal):
     def __str__(self):
         return super(Percent, self).__str__() + "%"
