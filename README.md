@@ -4,8 +4,8 @@ TODO
 [x] spaces in binary literals
 [x] fix name loads, dumps
 [x] binary literal decoding
-[ ] timedelta, datetime loads
-[ ] date, datetime, timedelta dumps
+[x] timedelta, datetime loads
+[x] date, datetime, timedelta dumps
 [x] string escaping and unescaping
 [ ] multiline string escaping and unescaping
 [x] parenthesized escapes (^(line), ^(tab), ^(XXXX), etc.)

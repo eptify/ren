@@ -6,7 +6,7 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from base64 import b64decode
-from .types import Money, Percent, Word, Point, DateTime, Map, List, Tuple, Binary
+from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary
 from .util import unescape
 
 
@@ -41,6 +41,9 @@ class Visitor(renVisitor):
                 return DateTime.strptime(ctx.getText(), "%Y-%m-%d/%H:%M:%S")
         elif ctx.Date():
             return DateTime.strptime(ctx.getText(), "%Y-%m-%d")
+        elif ctx.RelTime():
+            x = dict(zip(('hours', 'minutes', 'seconds'), map(parse_number, ctx.getText().split(':'))))
+            return TimeDelta(**x)
         return ctx.getText()
 
     def visitWord(self, ctx):

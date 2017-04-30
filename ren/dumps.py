@@ -1,6 +1,6 @@
 from collections import Mapping, Iterable
 from math import isinf, isnan
-from datetime import datetime
+from datetime import datetime, timedelta
 from .types import Point, Word, Binary
 from .util import escape
 
@@ -22,6 +22,8 @@ def dumps(x):
             h=str(x.hour).zfill(2),
             m=str(x.minute).zfill(2),
             s=str(x.second).zfill(2))
+    if isinstance(x, timedelta):
+        return str(x)
     if isinstance(x, Word):
         return x
     if isinstance(x, basestring):
