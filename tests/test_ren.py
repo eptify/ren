@@ -79,6 +79,6 @@ cases = [
 ]
 
 
-@pytest.mark.parametrize('s', cases)
-def test_ren(s):
-    assert dumps(loads(s)) == dumps(loads(dumps(loads(s))))
+@pytest.mark.parametrize('case', cases)
+def test_ren(case):
+    assert dumps(loads(case)) == dumps(loads(dumps(loads(case))))
