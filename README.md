@@ -7,14 +7,16 @@ TODO
 [x] timedelta, datetime loads
 [x] date, datetime, timedelta dumps
 [x] string escaping and unescaping
-[ ] multiline string escaping and unescaping
 [x] parenthesized escapes (^(line), ^(tab), ^(XXXX), etc.)
 [x] unicode in strings
 [x] test suite
-[ ] simplify visitor, grammar lexer and parser rules
 [x] directory layout
 [x] loads, dumps, load, dump, interface
 [x] raise ValueError on parse errors
+[ ] multiline string escaping and unescaping
+[ ] dumps, loads for RelDate, RelDateTime
+[ ] unify tests
+[ ] simplify visitor, grammar lexer and parser rules
 
 [ ] allow words starting with '<', '>' that aren't valid tags
 [ ] indented pretty printing
