@@ -1,0 +1,4 @@
+[run]
+omit =
+    ren/gen/*
+branch = True
