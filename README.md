@@ -13,10 +13,12 @@ TODO
 [x] directory layout
 [x] loads, dumps, load, dump, interface
 [x] raise ValueError on parse errors
+[x] unify tests
 [ ] multiline string escaping and unescaping
 [ ] dumps, loads for RelDate, RelDateTime
-[ ] unify tests
 [ ] simplify visitor, grammar lexer and parser rules
+[ ] support python3, pypy
+[ ] move make target implementations into setup.py
 
 [ ] allow words starting with '<', '>' that aren't valid tags
 [ ] indented pretty printing
