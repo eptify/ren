@@ -84,3 +84,9 @@ cases = [
 @pytest.mark.parametrize('case', cases)
 def test_ren(case):
     assert dumps(loads(case)) == dumps(loads(dumps(loads(case))))
+
+
+if __name__ == "__main__":
+    for case in cases:
+        x = loads(case)
+        print case, x, dumps(x), type(x).__name__
