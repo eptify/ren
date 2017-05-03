@@ -29,7 +29,7 @@ class Visitor(renVisitor):
             return float('nan')
         elif ctx.INF():
             return float('inf')
-        return ctx.getText()
+        raise Exception("unreachable")  # pragma: no cover
 
     def visitAnyDateTime(self, ctx):
         if ctx.DateTime():
@@ -68,6 +68,7 @@ class Visitor(renVisitor):
         elif ctx.B64binary():
             x = x[4:-1]
             return Binary(b64decode(x))
+        raise Exception("unreachable")  # pragma: no cover
 
     def visitLogic(self, ctx):
         if ctx.getText() in ("yes", "on", "true"):
@@ -104,13 +105,13 @@ class RenErrorListener(ErrorListener):
         raise ValueError("line " + str(line) + ":" + str(column) + " " + msg)
 
     def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
-        raise ValueError("ambiguity")
+        raise ValueError("ambiguity")  # pragma: no cover (unreachable)
 
     def reportAttemptingFullContext(self, recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs):
-        raise ValueError("attempting full context")
+        raise ValueError("attempting full context")  # pragma: no cover (unreachable)
 
     def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
-        raise ValueError("context sensitivity")
+        raise ValueError("context sensitivity")  # pragma: no cover (unreachable)
 
 
 def loads(s):
