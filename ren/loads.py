@@ -29,7 +29,7 @@ class Visitor(renVisitor):
             return float('nan')
         elif ctx.INF():
             return float('inf')
-        raise Exception("unreachable")  # pragma: no cover
+        raise ValueError("unreachable")  # pragma: no cover
 
     def visitAnyDateTime(self, ctx):
         if ctx.DateTime():
@@ -68,7 +68,7 @@ class Visitor(renVisitor):
         elif ctx.B64binary():
             x = x[4:-1]
             return Binary(b64decode(x))
-        raise Exception("unreachable")  # pragma: no cover
+        raise ValueError("unreachable")  # pragma: no cover
 
     def visitLogic(self, ctx):
         if ctx.getText() in ("yes", "on", "true"):
