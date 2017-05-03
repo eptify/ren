@@ -76,6 +76,8 @@ cases = [
     "3.1.2",
     "#123-456",
     "%/path/to/file",
+    "example@example.com",
+    "http://example.com",
 ]
 
 
