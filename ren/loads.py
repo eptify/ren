@@ -6,6 +6,7 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from base64 import b64decode
+from datetime import tzinfo, timedelta
 from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary, Name, Root, ImpliedString, Tag
 from .util import unescape
 
@@ -33,21 +34,34 @@ class Visitor(renVisitor):
 
     def visitAnyDateTime(self, ctx):
         if ctx.DateTime():
-            x = ctx.getText()
-            x = x.replace('T', '/')
-            if len(x) > 19:
-                return ctx.getText()  # todo: handle timezone
+            s = ctx.getText()
+            s = s.replace('T', '/')
+            if len(s) > 19:
+                tz = None
+                d = DateTime.strptime(s[:19], "%Y-%m-%d/%H:%M:%S")
+                if not s.endswith('Z'):
+                    parts = map(int, s[20:].split(':'))
+                    offset = (parts[0] * 60 + parts[1]) * 60
+                    sign = s[19]
+                    if sign == '-':
+                        offset *= -1
+                    class TZ(tzinfo):
+                        def utcoffset(self, dt):
+                            return timedelta(seconds=offset)
+                        def dst(self, dt):
+                            return timedelta(0)
+                        def tzname(self, dt):
+                            return sign + ''.join(map(str, parts))
+                    tz = TZ()
+                d = d.replace(tzinfo=tz)
+                return d
             else:
-                return DateTime.strptime(ctx.getText(), "%Y-%m-%d/%H:%M:%S")
+                return DateTime.strptime(s, "%Y-%m-%d/%H:%M:%S")
         elif ctx.Date():
             return DateTime.strptime(ctx.getText(), "%Y-%m-%d")
         elif ctx.RelTime():
             x = dict(zip(('hours', 'minutes', 'seconds'), map(parse_number, ctx.getText().split(':'))))
             return TimeDelta(**x)
-        elif ctx.RelDateTime():
-            return ctx.getText()  # todo
-        elif ctx.RelTime():
-            return ctx.getText()  # todo
         raise ValueError("unreachable")  # pragma: no cover
 
     def visitWord(self, ctx):

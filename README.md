@@ -17,8 +17,8 @@ TODO
 [x] support parsing multiple values (implied list)
 [x] multiline string escaping and unescaping
 [x] implied string and tag as separate types
-[ ] dumps, loads for RelDate, RelDateTime
-[ ] dumps, loads for Date, DateTime with timezone
+[x] remove RelDate, RelDateTime
+[x] dumps, loads for Date, DateTime with timezone
 [ ] simplify visitor, grammar lexer and parser rules
 [ ] support python3, pypy
 [ ] move make target implementations into setup.py

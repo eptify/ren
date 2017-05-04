@@ -17,13 +17,7 @@ def dumps(x):
     if isinstance(x, Binary):
         return str(x)
     if isinstance(x, datetime):
-        return "{Y}-{M}-{d}/{h}:{m}:{s}".format(
-            Y=str(x.year).zfill(4),
-            M=str(x.month).zfill(2),
-            d=str(x.day).zfill(2),
-            h=str(x.hour).zfill(2),
-            m=str(x.minute).zfill(2),
-            s=str(x.second).zfill(2))
+        return str(x).replace(' ', '/')
     if isinstance(x, timedelta):
         return str(x)
     if isinstance(x, Name):
