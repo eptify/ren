@@ -1,7 +1,7 @@
 from collections import Mapping, Iterable
 from math import isinf, isnan
 from datetime import datetime, timedelta
-from .types import Point, Word, Binary, Name, Root
+from .types import Point, Word, Binary, Name, Root, ImpliedString, Tag
 from .util import escape
 
 
@@ -29,6 +29,10 @@ def dumps(x):
     if isinstance(x, Name):
         return x + ": "
     if isinstance(x, Word):
+        return x
+    if isinstance(x, ImpliedString):
+        return x
+    if isinstance(x, Tag):
         return x
     if isinstance(x, basestring):
         return '"' + escape(x) + '"'

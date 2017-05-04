@@ -28,6 +28,14 @@ class Name(str):
     pass
 
 
+class ImpliedString(str):
+    pass
+
+
+class Tag(str):
+    pass
+
+
 class Percent(Decimal):
     def __str__(self):
         return super(Percent, self).__str__() + "%"

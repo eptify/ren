@@ -6,7 +6,7 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from base64 import b64decode
-from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary, Name, Root
+from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary, Name, Root, ImpliedString, Tag
 from .util import unescape
 
 
@@ -54,7 +54,11 @@ class Visitor(renVisitor):
             return unescape(ctx.getText()[1:-1])
         elif ctx.MultilineString():
             return ctx.getText()[1:-1].replace('^{', '{').replace('^}', '}')
-        return ctx.getText()
+        elif ctx.ImpliedString():
+            return ImpliedString(ctx.getText())
+        elif ctx.Tag():
+            return Tag(ctx.getText())
+        raise ValueError("unreachable")  # pragma: no cover
 
     def visitPoint(self, ctx):
         return Point(map(parse_number, ctx.getText().split('x')))
