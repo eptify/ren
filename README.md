@@ -23,6 +23,7 @@ TODO
 [ ] support python3, pypy
 [ ] move make target implementations into setup.py
 [ ] indented pretty printing
+[ ] fix any lint issues
 
 [ ] allow words starting with '<', '>' that aren't valid tags
 [ ] optional 3 character currency tags (e.g. USD$2.50, EUR$2.00)
