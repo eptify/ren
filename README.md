@@ -18,11 +18,12 @@ TODO
 [x] multiline string escaping and unescaping
 [ ] implied string as separate type
 [ ] dumps, loads for RelDate, RelDateTime
+[ ] dumps, loads for Date, DateTime with timezone
 [ ] simplify visitor, grammar lexer and parser rules
 [ ] support python3, pypy
 [ ] move make target implementations into setup.py
+[ ] indented pretty printing
 
 [ ] allow words starting with '<', '>' that aren't valid tags
-[ ] indented pretty printing
 [ ] optional 3 character currency tags (e.g. USD$2.50, EUR$2.00)
 [ ] base 2 and octal literals
