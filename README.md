@@ -19,10 +19,11 @@ TODO
 [x] implied string and tag as separate types
 [x] remove RelDate, RelDateTime
 [x] dumps, loads for Date, DateTime with timezone
-[ ] simplify visitor, grammar lexer and parser rules
+[ ] improve tests 
+[ ] indented pretty printing
+[ ] simplify grammar and visitor
 [ ] support python3, pypy
 [ ] move make target implementations into setup.py
-[ ] indented pretty printing
 [ ] fix any lint issues
 
 [ ] allow words starting with '<', '>' that aren't valid tags
