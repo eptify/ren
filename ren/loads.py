@@ -45,13 +45,17 @@ class Visitor(renVisitor):
                     sign = s[19]
                     if sign == '-':
                         offset *= -1
+
                     class TZ(tzinfo):
                         def utcoffset(self, dt):
                             return timedelta(seconds=offset)
+
                         def dst(self, dt):
-                            return timedelta(0)
+                            return timedelta(0)  # pragma: no cover (satisfy abc)
+
                         def tzname(self, dt):
-                            return sign + ''.join(map(str, parts))
+                            return sign + ''.join(map(str, parts))  # pragma: no cover (satisfy abc)
+
                     tz = TZ()
                 d = d.replace(tzinfo=tz)
                 return d
