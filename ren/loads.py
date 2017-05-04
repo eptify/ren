@@ -36,7 +36,7 @@ class Visitor(renVisitor):
             x = ctx.getText()
             x = x.replace('T', '/')
             if len(x) > 19:
-                pass # todo: handle timezone
+                return ctx.getText()  # todo: handle timezone
             else:
                 return DateTime.strptime(ctx.getText(), "%Y-%m-%d/%H:%M:%S")
         elif ctx.Date():
@@ -44,7 +44,11 @@ class Visitor(renVisitor):
         elif ctx.RelTime():
             x = dict(zip(('hours', 'minutes', 'seconds'), map(parse_number, ctx.getText().split(':'))))
             return TimeDelta(**x)
-        return ctx.getText()
+        elif ctx.RelDateTime():
+            return ctx.getText()  # todo
+        elif ctx.RelTime():
+            return ctx.getText()  # todo
+        raise ValueError("unreachable")  # pragma: no cover
 
     def visitWord(self, ctx):
         return Word(ctx.getText())
