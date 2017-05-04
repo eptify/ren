@@ -4,6 +4,10 @@ from collections import OrderedDict
 from base64 import b64encode
 
 
+class Root(list):
+    pass
+
+
 class Map(OrderedDict):
     pass
 

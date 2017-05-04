@@ -89,4 +89,4 @@ def test_ren(case):
 if __name__ == "__main__":
     for case in cases:
         x = loads(case)
-        print case, x, dumps(x), type(x).__name__
+        print case, x, dumps(x), type(x[0]).__name__

@@ -6,7 +6,7 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from base64 import b64decode
-from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary, Name
+from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary, Name, Root
 from .util import unescape
 
 
@@ -93,8 +93,8 @@ class Visitor(renVisitor):
     def visitRenmap(self, ctx):
         return Map(self.visit(p) for p in ctx.nameValuePair())
 
-    def visitSingleValue(self, ctx):
-        return self.visit(ctx.value())
+    def visitRoot(self, ctx):
+        return Root([self.visit(v) for v in ctx.value()])
 
 
 class RenErrorListener(ErrorListener):
@@ -121,6 +121,6 @@ def loads(s):
     stream = CommonTokenStream(lexer)
     parser = renParser(stream)
     parser._listeners = [RenErrorListener()]
-    tree = parser.singleValue()
+    tree = parser.root()
     visitor = Visitor()
     return visitor.visit(tree)

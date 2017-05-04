@@ -1,6 +1,6 @@
 grammar ren ;
 /*parser*/
-singleValue : value EOF ;
+root: value+ EOF ;
 renlist : '[' value* ']' | '(' value* ')' ;
 renmap : '#(' nameValuePair* ')' ;
 nameValuePair : name value ;

@@ -1,7 +1,7 @@
 from collections import Mapping, Iterable
 from math import isinf, isnan
 from datetime import datetime, timedelta
-from .types import Point, Word, Binary, Name
+from .types import Point, Word, Binary, Name, Root
 from .util import escape
 
 
@@ -12,6 +12,8 @@ def dumps(x):
         return "false"
     if x is None:
         return "none"
+    if isinstance(x, Root):
+        return " ".join(map(dumps, x))
     if isinstance(x, Binary):
         return str(x)
     if isinstance(x, datetime):
