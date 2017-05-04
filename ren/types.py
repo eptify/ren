@@ -20,6 +20,10 @@ class Word(str):
     pass
 
 
+class Name(str):
+    pass
+
+
 class Percent(Decimal):
     def __str__(self):
         return super(Percent, self).__str__() + "%"

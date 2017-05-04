@@ -6,7 +6,7 @@ from gen.renLexer import renLexer
 from gen.renParser import renParser
 from gen.renVisitor import renVisitor
 from base64 import b64decode
-from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary
+from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary, Name
 from .util import unescape
 
 
@@ -82,7 +82,7 @@ class Visitor(renVisitor):
         return Tuple(map(int, ctx.getText().split('.')))
 
     def visitName(self, ctx):
-        return ctx.getText().rstrip()[:-1]
+        return Name(ctx.getText().rstrip()[:-1])
 
     def visitRenlist(self, ctx):
         return List([self.visit(v) for v in ctx.value()])

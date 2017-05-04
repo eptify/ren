@@ -1,7 +1,7 @@
 from collections import Mapping, Iterable
 from math import isinf, isnan
 from datetime import datetime, timedelta
-from .types import Point, Word, Binary
+from .types import Point, Word, Binary, Name
 from .util import escape
 
 
@@ -24,6 +24,8 @@ def dumps(x):
             s=str(x.second).zfill(2))
     if isinstance(x, timedelta):
         return str(x)
+    if isinstance(x, Name):
+        return x + ": "
     if isinstance(x, Word):
         return x
     if isinstance(x, basestring):
@@ -33,7 +35,7 @@ def dumps(x):
     if isinstance(x, tuple):
         return ".".join(map(dumps, x))
     if isinstance(x, Mapping):
-        return "#(" + " ".join(dumps(Word(k)) + ": " + dumps(v) for k, v in x.iteritems()) + ")"
+        return "#(" + " ".join(dumps(Name(k)) + dumps(v) for k, v in x.iteritems()) + ")"
     if isinstance(x, Iterable):
         return "[" + " ".join(map(dumps, x)) + "]"
     else:
