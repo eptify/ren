@@ -52,6 +52,8 @@ class Visitor(renVisitor):
     def visitAnyString(self, ctx):
         if ctx.String():
             return unescape(ctx.getText()[1:-1])
+        elif ctx.MultilineString():
+            return ctx.getText()[1:-1].replace('^{', '{').replace('^}', '}')
         return ctx.getText()
 
     def visitPoint(self, ctx):

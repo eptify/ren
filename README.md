@@ -15,7 +15,7 @@ TODO
 [x] raise ValueError on parse errors
 [x] unify tests
 [x] support parsing multiple values (implied list)
-[ ] multiline string escaping and unescaping
+[x] multiline string escaping and unescaping
 [ ] implied string as separate type
 [ ] dumps, loads for RelDate, RelDateTime
 [ ] simplify visitor, grammar lexer and parser rules

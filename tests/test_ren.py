@@ -78,6 +78,7 @@ cases = [
     "%/path/to/file",
     "example@example.com",
     "http://example.com",
+    '{^{^}}',
 ]
 
 
