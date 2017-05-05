@@ -1,6 +1,7 @@
+from collections import OrderedDict
 from datetime import datetime, timedelta
 from decimal import Decimal
-from collections import OrderedDict
+
 from .platform import b64encode
 
 

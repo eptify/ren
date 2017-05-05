@@ -20,11 +20,11 @@ TODO
 [x] remove RelDate, RelDateTime
 [x] dumps, loads for Date, DateTime with timezone
 [x] support python3, pypy
+[x] fix any lint issues
 [ ] improve tests 
 [ ] indented pretty printing
 [ ] simplify grammar and visitor
 [ ] move make target implementations into setup.py
-[ ] fix any lint issues
 
 [ ] allow words starting with '<', '>' that aren't valid tags
 [ ] optional 3 character currency tags (e.g. USD$2.50, EUR$2.00)

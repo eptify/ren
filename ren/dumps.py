@@ -1,48 +1,50 @@
 from collections import Mapping, Iterable
-from math import isinf, isnan
 from datetime import datetime, timedelta
+from math import isinf, isnan
+
+from .platform import isstr, iteritems
 from .types import Point, Word, Binary, Name, Root, ImpliedString, Tag
 from .util import escape
-from .platform import isstr, iteritems
 
 
 def dumps(x):
     if x is True:
         return "true"
-    if x is False:
+    elif x is False:
         return "false"
-    if x is None:
+    elif x is None:
         return "none"
-    if isinstance(x, Root):
+    elif isinstance(x, Root):
         return " ".join(map(dumps, x))
-    if isinstance(x, Binary):
+    elif isinstance(x, Binary):
         return str(x)
-    if isinstance(x, datetime):
+    elif isinstance(x, datetime):
         return str(x).replace(' ', '/')
-    if isinstance(x, timedelta):
+    elif isinstance(x, timedelta):
         return str(x)
-    if isinstance(x, Name):
+    elif isinstance(x, Name):
         return x + ": "
-    if isinstance(x, Word):
+    elif isinstance(x, Word):
         return x
-    if isinstance(x, ImpliedString):
+    elif isinstance(x, ImpliedString):
         return x
-    if isinstance(x, Tag):
+    elif isinstance(x, Tag):
         return x
-    if isstr(x):
+    elif isstr(x):
         return '"' + escape(x) + '"'
-    if isinstance(x, Point):
+    elif isinstance(x, Point):
         return str(x)
-    if isinstance(x, tuple):
+    elif isinstance(x, tuple):
         return ".".join(map(dumps, x))
-    if isinstance(x, Mapping):
-        return "#(" + " ".join(dumps(Name(k)) + dumps(v) for k, v in iteritems(x)) + ")"
-    if isinstance(x, Iterable):
+    elif isinstance(x, Mapping):
+        return "#(" + " ".join(
+            dumps(Name(k)) + dumps(v) for k, v in iteritems(x)) + ")"
+    elif isinstance(x, Iterable):
         return "[" + " ".join(map(dumps, x)) + "]"
     else:
         if isinstance(x, float):
             if isnan(x):
                 return "1.#NaN"
-            if isinf(x):
+            elif isinf(x):
                 return "1.#INF"
         return str(x)

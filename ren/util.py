@@ -1,4 +1,5 @@
 import re
+
 from .platform import _unichr
 
 

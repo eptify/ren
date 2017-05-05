@@ -1,11 +1,16 @@
 import re
 import codecs
+from datetime import tzinfo, timedelta
+
 from antlr4 import InputStream, CommonTokenStream
 from antlr4.error.ErrorListener import ErrorListener
-from datetime import tzinfo, timedelta
-from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary, Name, Root, ImpliedString, Tag
-from .util import unescape
+
 from .platform import renLexer, renParser, renVisitor, b64decode
+from .util import unescape
+from .types import (
+    Money, Percent, Word, Point, DateTime, TimeDelta, Map,
+    List, Tuple, Binary, Name, Root, ImpliedString, Tag
+)
 
 
 def parse_number(s):
@@ -48,10 +53,11 @@ class Visitor(renVisitor):
                             return timedelta(seconds=offset)
 
                         def dst(self, dt):
-                            return timedelta(0)  # pragma: no cover (satisfy abc)
+                            return timedelta(0)  # pragma: no cover
 
                         def tzname(self, dt):
-                            return sign + ''.join(map(str, parts))  # pragma: no cover (satisfy abc)
+                            return sign + ''.join(
+                                map(str, parts))  # pragma: no cover
 
                     tz = TZ()
                 d = d.replace(tzinfo=tz)
@@ -61,7 +67,8 @@ class Visitor(renVisitor):
         elif ctx.Date():
             return DateTime.strptime(ctx.getText(), "%Y-%m-%d")
         elif ctx.RelTime():
-            x = dict(zip(('hours', 'minutes', 'seconds'), map(parse_number, ctx.getText().split(':'))))
+            x = dict(zip(('hours', 'minutes', 'seconds'),
+                     map(parse_number, ctx.getText().split(':'))))
             return TimeDelta(**x)
         raise ValueError("unreachable")  # pragma: no cover
 
@@ -129,14 +136,17 @@ class RenErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         raise ValueError("line " + str(line) + ":" + str(column) + " " + msg)
 
-    def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
-        raise ValueError("ambiguity")  # pragma: no cover (unreachable)
+    def reportAmbiguity(self, recognizer, dfa, startIndex,
+                        stopIndex, exact, ambigAlts, configs):
+        raise ValueError("unreachable")  # pragma: no cover
 
-    def reportAttemptingFullContext(self, recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs):
-        raise ValueError("attempting full context")  # pragma: no cover (unreachable)
+    def reportAttemptingFullContext(self, recognizer, dfa, startIndex,
+                                    stopIndex, conflictingAlts, configs):
+        raise ValueError("unreachable")  # pragma: no cover
 
-    def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
-        raise ValueError("context sensitivity")  # pragma: no cover (unreachable)
+    def reportContextSensitivity(self, recognizer, dfa, startIndex,
+                                 stopIndex, prediction, configs):
+        raise ValueError("unreachable")  # pragma: no cover
 
 
 def loads(s):

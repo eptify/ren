@@ -1,2 +1,2 @@
-from .loads import loads
-from .dumps import dumps
+from .loads import loads  # NOQA
+from .dumps import dumps  # NOQA
