@@ -8,4 +8,5 @@ ren/py3grammar
 .antlr/
 .cache/
 .coverage
+.tox/
 htmlcov/

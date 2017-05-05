@@ -21,8 +21,8 @@ TODO
 [x] dumps, loads for Date, DateTime with timezone
 [x] support python3, pypy
 [x] fix any lint issues
-[ ] move make target implementations into setup.py
-[ ] run tests in multiple virtual environments
+[x] move make target implementations into setup.py
+[x] run tests in multiple virtual environments
 [ ] indented pretty printing
 [ ] simplify grammar and visitor
 [ ] improve tests 
