@@ -36,3 +36,5 @@ TODO
 [ ] indented pretty printing
 [ ] simplify grammar and visitor
 [ ] improve tests
+[ ] continuous integration
+[ ] publish to pypi
