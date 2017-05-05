@@ -21,10 +21,11 @@ TODO
 [x] dumps, loads for Date, DateTime with timezone
 [x] support python3, pypy
 [x] fix any lint issues
-[ ] improve tests 
+[ ] move make target implementations into setup.py
+[ ] run tests in multiple virtual environments
 [ ] indented pretty printing
 [ ] simplify grammar and visitor
-[ ] move make target implementations into setup.py
+[ ] improve tests 
 
 [ ] allow words starting with '<', '>' that aren't valid tags
 [ ] optional 3 character currency tags (e.g. USD$2.50, EUR$2.00)
