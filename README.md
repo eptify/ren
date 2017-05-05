@@ -19,10 +19,10 @@ TODO
 [x] implied string and tag as separate types
 [x] remove RelDate, RelDateTime
 [x] dumps, loads for Date, DateTime with timezone
+[x] support python3, pypy
 [ ] improve tests 
 [ ] indented pretty printing
 [ ] simplify grammar and visitor
-[ ] support python3, pypy
 [ ] move make target implementations into setup.py
 [ ] fix any lint issues
 

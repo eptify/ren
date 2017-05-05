@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
 from collections import OrderedDict
-from base64 import b64encode
+from .platform import b64encode
 
 
 class Root(list):

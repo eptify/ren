@@ -1,7 +1,10 @@
 *.pyc
 *.egg-info
-gen/
-.venv/
+ren/py2grammar
+ren/py3grammar
+.python2/
+.python3/
+.pypy/
 .antlr/
 .cache/
 .coverage

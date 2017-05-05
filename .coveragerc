@@ -1,4 +1,6 @@
 [run]
 omit =
-    ren/gen/*
+    ren/py2grammar/*
+    ren/py3grammar/*
+    ren/platform.py
 branch = True

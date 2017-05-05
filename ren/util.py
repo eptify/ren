@@ -1,4 +1,5 @@
 import re
+from .platform import _unichr
 
 
 def escape(s):
@@ -20,5 +21,5 @@ def unescape(s):
     matches = RE.findall(s)
     for match in matches:
         hex = match[2:-1]
-        s = s.replace(match, unichr(int(hex, 16)))
+        s = s.replace(match, _unichr(int(hex, 16)))
     return s

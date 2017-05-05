@@ -2,13 +2,10 @@ import re
 import codecs
 from antlr4 import InputStream, CommonTokenStream
 from antlr4.error.ErrorListener import ErrorListener
-from gen.renLexer import renLexer
-from gen.renParser import renParser
-from gen.renVisitor import renVisitor
-from base64 import b64decode
 from datetime import tzinfo, timedelta
 from .types import Money, Percent, Word, Point, DateTime, TimeDelta, Map, List, Tuple, Binary, Name, Root, ImpliedString, Tag
 from .util import unescape
+from .platform import renLexer, renParser, renVisitor, b64decode
 
 
 def parse_number(s):
@@ -40,7 +37,7 @@ class Visitor(renVisitor):
                 tz = None
                 d = DateTime.strptime(s[:19], "%Y-%m-%d/%H:%M:%S")
                 if not s.endswith('Z'):
-                    parts = map(int, s[20:].split(':'))
+                    parts = [int(p) for p in s[20:].split(':')]
                     offset = (parts[0] * 60 + parts[1]) * 60
                     sign = s[19]
                     if sign == '-':

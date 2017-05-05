@@ -3,6 +3,7 @@ from math import isinf, isnan
 from datetime import datetime, timedelta
 from .types import Point, Word, Binary, Name, Root, ImpliedString, Tag
 from .util import escape
+from .platform import isstr, iteritems
 
 
 def dumps(x):
@@ -28,14 +29,14 @@ def dumps(x):
         return x
     if isinstance(x, Tag):
         return x
-    if isinstance(x, basestring):
+    if isstr(x):
         return '"' + escape(x) + '"'
     if isinstance(x, Point):
         return str(x)
     if isinstance(x, tuple):
         return ".".join(map(dumps, x))
     if isinstance(x, Mapping):
-        return "#(" + " ".join(dumps(Name(k)) + dumps(v) for k, v in x.iteritems()) + ")"
+        return "#(" + " ".join(dumps(Name(k)) + dumps(v) for k, v in iteritems(x)) + ")"
     if isinstance(x, Iterable):
         return "[" + " ".join(map(dumps, x)) + "]"
     else:
