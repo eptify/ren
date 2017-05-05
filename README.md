@@ -1,32 +1,38 @@
+Ren
+---
+Python implementation of the [ren data format](http://ren-data.org).
+
+```python
+import ren
+
+data = ren.loads("#(a: 1 b: 2)")
+ren.dumps(data)
+```
+
 TODO
 ----
 [x] implied string literals (url, email, file, issues, etc.)
 [x] spaces in binary literals
-[x] fix name loads, dumps
+[x] name loads, dumps
 [x] binary literal decoding
 [x] timedelta, datetime loads
 [x] date, datetime, timedelta dumps
 [x] string escaping and unescaping
-[x] parenthesized escapes (^(line), ^(tab), ^(XXXX), etc.)
+[x] parenthesized escapes ^(XXXX)
 [x] unicode in strings
 [x] test suite
-[x] directory layout
-[x] loads, dumps, load, dump, interface
+[x] loads, dumps interface
 [x] raise ValueError on parse errors
 [x] unify tests
 [x] support parsing multiple values (implied list)
 [x] multiline string escaping and unescaping
 [x] implied string and tag as separate types
-[x] remove RelDate, RelDateTime
 [x] dumps, loads for Date, DateTime with timezone
-[x] support python3, pypy
-[x] fix any lint issues
+[x] support python2, python3, pypy
+[x] fix flake8 issues
 [x] run tests in multiple virtual environments
-[ ] move make target implementations into setup.py
+[x] move grammar target into setup.py
+[x] 100% coverage
 [ ] indented pretty printing
 [ ] simplify grammar and visitor
-[ ] improve tests 
-
-[ ] allow words starting with '<', '>' that aren't valid tags
-[ ] optional 3 character currency tags (e.g. USD$2.50, EUR$2.00)
-[ ] base 2 and octal literals
+[ ] improve tests
