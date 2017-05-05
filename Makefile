@@ -1,8 +1,11 @@
 grammar:
 	python setup.py grammar
 
+coverage:
+	pytest --quiet --cov=ren --cov-report=html
+
 test:
-	pytest --cov=ren --cov-report=html
+	tox
 
 lint:
 	flake8 setup.py ren/*.py tests/*.py
