@@ -45,11 +45,21 @@ class GrammarCommand(Command):
         open('ren/py3grammar/__init__.py', 'a').close()
 
 
-setup(
+config = dict(
     name="ren",
     version="0.0.1",
     packages=["ren"],
     cmdclass={
         'grammar': GrammarCommand
-    }
+    },
+    install_requires=[]
 )
+
+
+if platform.python_version().startswith('2'):
+    config['install_requires'].append('antlr4-python2-runtime==4.7')
+else:
+    config['install_requires'].append('antlr4-python3-runtime==4.7')
+
+
+setup(**config)
